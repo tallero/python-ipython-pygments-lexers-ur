@@ -98,6 +98,9 @@ package() {
     "${_py}" \
       -c \
         "import site; print(site.getsitepackages()[0])")"
+  cd \
+    "${srcdir}/${_pkg}"
+  ls
   install \
     -d \
     "${pkgdir}/usr/share/licenses/${pkgname}"
@@ -105,8 +108,6 @@ package() {
     -s \
     "${site_packages}/${_pkg//-/_}-${pkgver}.dist-info/licenses/LICENSE" \
     "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  cd \
-    "${_pkg}"
   "${_py}" \
     -m \
       "installer" \
