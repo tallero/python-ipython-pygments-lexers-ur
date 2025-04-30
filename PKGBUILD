@@ -76,7 +76,7 @@ b2sums=(
 
 build() {
   cd \
-    "${_name}"
+    "${srcdir}/${_pkg}"
   "${_py}" \
     -m \
       "build" \
@@ -100,17 +100,16 @@ package() {
         "import site; print(site.getsitepackages()[0])")"
   cd \
     "${srcdir}/${_pkg}"
-  ls
   install \
     -d \
     "${pkgdir}/usr/share/licenses/${pkgname}"
-  ln \
-    -s \
-    "${site_packages}/${_pkg//-/_}-${pkgver}.dist-info/licenses/LICENSE" \
-    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
   "${_py}" \
     -m \
       "installer" \
       --destdir="${pkgdir}" \
       "dist/"*".whl"
+  ln \
+    -s \
+    "${site_packages}/${_pkg//-/_}-${pkgver}.dist-info/licenses/LICENSE" \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
